@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reward Secured</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="dns-prefetch" href="https://flowbox.hotrk0.com">
+    <link rel="preconnect" href="https://flowbox.hotrk0.com" crossorigin>
+
+    <style>
+        * { box-sizing: border-box; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        body { margin: 0; padding: 0; background: #f0f2f5; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .wrap { width: 90%; max-width: 400px; padding: 30px; text-align: center; background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .card-visual { background:#0071ce; color:#fff; padding:40px 0; border-radius:12px; margin-bottom:20px; font-weight:800; font-size:32px; letter-spacing: 2px; }
+        h1 { font-size: 22px; color: #111; margin: 0 0 10px; }
+        p { font-size: 15px; color: #666; margin-bottom: 25px; line-height: 1.4; min-height: 42px; }
+        .btn { display: block; width: 100%; background: #0071ce; color: #fff; text-decoration: none; padding: 18px 0; border-radius: 50px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; }
+        
+        #loading-view { display: none; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0071ce; border-radius: 50%; width: 40px; height: 40px; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .status-msg { font-weight: 600; color: #0071ce; }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div id="init-view">
+        <div style="color:#0071ce; font-weight:bold; margin-bottom:10px;">WALMART SHOPPER REWARD</div>
+        <div class="card-visual">$1,000</div>
+        <h1>Congratulations!</h1>
+        <p>You have been selected. Claim your $1,000 gift card now.</p>
+        <button class="btn" id="goBtn">CLAIM NOW</button>
+    </div>
+
+    <div id="loading-view">
+        <div class="spinner"></div>
+        <h1 id="load-title">Processing...</h1>
+        <p id="load-desc" class="status-msg">Verifying entry...</p>
+    </div>
+</div>
+
+<script>
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const finalUrl = "https://flowbox.hotrk0.com/offer?offer_id=173258&aff_id=295" +
+                     "&aff_sub=" + encodeURIComponent(params.get('bbg') || '') +
+                     "&aff_sub2=" + encodeURIComponent(params.get('pixel_id') || '') +
+                     "&aff_sub3=" + encodeURIComponent(params.get('ad_name') || '') +
+                     "&aff_pub=" + encodeURIComponent(params.get('publisher_id') || '');
+
+    const btn = document.getElementById("goBtn");
+    const initView = document.getElementById("init-view");
+    const loadingView = document.getElementById("loading-view");
+    const loadDesc = document.getElementById("load-desc");
+    const loadTitle = document.getElementById("load-title");
+
+    btn.addEventListener("click", function () {
+        // 1. 瞬时执行跳转请求（核心：不等待动画）
+        window.location.href = finalUrl;
+
+        // 2. 同步切换视觉效果
+        initView.style.display = "none";
+        loadingView.style.display = "block";
+        
+        // 3. 紧凑的字幕节奏（总计约1.2秒，符合现代快节奏流量）
+        setTimeout(() => {
+            loadTitle.innerText = "Confirmed!";
+            loadTitle.style.color = "#28a745";
+            loadDesc.innerText = "Redirecting to your reward page...";
+        }, 600);
+        
+        // 4. 强制跳转兜底
+        setTimeout(() => { window.location.replace(finalUrl); }, 3000);
+    });
+})();
+</script>
+</body>
+</html>

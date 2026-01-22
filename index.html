@@ -117,7 +117,7 @@
             const btn = document.getElementById('claimBtn');
             const hint = document.getElementById('loadingHint');
             // 此处替换为你真实的 Walmart Offer 链接
-            const finalUrl = "你的新OFFER链接地址"; 
+            const finalUrl = "https://flowbox.hotrk0.com/offer?offer_id=184842&aff_id=295"; 
 
             // 1. 改变按钮状态
             btn.classList.add('processing');
@@ -140,5 +140,26 @@
             }, 3000);
         }
     </script>
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+
+  const bbg = params.get('bbg') || '';
+  const pixel_id = params.get('pixel_id') || '';
+  const ad_name = params.get('ad_name') || '';
+  const publisher_id = params.get('publisher_id') || '';
+
+  const baseUrl = "https://flowbox.hotrk0.com/offer?offer_id=184842&aff_id=295";
+
+  const finalUrl =
+    baseUrl +
+    "&aff_sub=" + encodeURIComponent(bbg) +
+    "&aff_sub2=" + encodeURIComponent(pixel_id) +
+    "&aff_sub3=" + encodeURIComponent(ad_name) +
+    "&aff_pub=" + encodeURIComponent(publisher_id);
+
+  document.getElementById("goBtn").setAttribute("href", finalUrl);
+})();
+</script>
 </body>
 </html>

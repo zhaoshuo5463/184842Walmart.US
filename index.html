@@ -15,8 +15,21 @@
         .card-visual { background:#0071ce; color:#fff; padding:40px 0; border-radius:12px; margin-bottom:20px; font-weight:800; font-size:32px; letter-spacing: 2px; }
         h1 { font-size: 22px; color: #111; margin: 0 0 10px; }
         p { font-size: 15px; color: #666; margin-bottom: 25px; line-height: 1.4; min-height: 42px; }
-        .btn { display: block; width: 100%; background: #0071ce; color: #fff; text-decoration: none; padding: 18px 0; border-radius: 50px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; }
-        
+        /* 建议替换原有的 .btn 样式 */
+.btn { 
+    display: block; 
+    width: 100%; 
+    background: #ffc220; /* 沃尔玛黄 */
+    color: #000;         /* 黑色文字更醒目 */
+    text-decoration: none; 
+    padding: 18px 0; 
+    border-radius: 50px; 
+    font-size: 19px; 
+    font-weight: bold; 
+    border: none; 
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
         #loading-view { display: none; }
         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0071ce; border-radius: 50%; width: 40px; height: 40px; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

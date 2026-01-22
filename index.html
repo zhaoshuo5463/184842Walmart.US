@@ -2,112 +2,147 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reward Secured</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="dns-prefetch" href="https://flowbox.hotrk0.com">
-    <link rel="preconnect" href="https://flowbox.hotrk0.com" crossorigin>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Walmart Shopper Reward</title>
     <style>
-        /* 图片容器样式：确保居中 */
-.hero-image-container {
-    text-align: center; /* 让图片水平居中 */
-    margin-bottom: 20px; /* 图片底部和下方文字拉开一点距离 */
-    padding: 0 15px; /* 防止图片在小屏幕手机上紧贴边缘 */
+        /* 1. 定义呼吸灯动画：让按钮稍微放大缩小 */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 4px 0 #b38400; }
+    50% { transform: scale(1.05); box-shadow: 0 6px 15px rgba(255, 194, 32, 0.4); }
+    100% { transform: scale(1); box-shadow: 0 4px 0 #b38400; }
 }
 
-/* 图片本身样式：响应式缩放 */
-.prize-card-img {
-    max-width: 100%; /* 关键：让图片宽度永远不超过屏幕宽度 */
-    height: auto;    /* 高度自动按比例缩放 */
-    width: 500px;    /* 设置一个理想的最大显示宽度，在大屏手机上也不会大得离谱 */
-    border-radius: 12px; /* 可选：给图片加一点圆角，看起来更像一张真实的卡片，更精致 */
-    box-shadow: 0 4px 15px rgba(0,113,206, 0.3); /* 可选：加一点沃尔玛蓝色的阴影，增加立体感和高级感 */
-}
-        * { box-sizing: border-box; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        body { margin: 0; padding: 0; background: #f0f2f5; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .wrap { width: 90%; max-width: 400px; padding: 30px; text-align: center; background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card-visual { background:#0071ce; color:#fff; padding:40px 0; border-radius:12px; margin-bottom:20px; font-weight:800; font-size:32px; letter-spacing: 2px; }
-        h1 { font-size: 22px; color: #111; margin: 0 0 10px; }
-        p { font-size: 15px; color: #666; margin-bottom: 25px; line-height: 1.4; min-height: 42px; }
-        /* 建议替换原有的 .btn 样式 */
-.btn { 
-    display: block; 
-    width: 100%; 
-    background: #ffc220; /* 沃尔玛黄 */
-    color: #000;         /* 黑色文字更醒目 */
-    text-decoration: none; 
-    padding: 18px 0; 
-    border-radius: 50px; 
-    font-size: 19px; 
-    font-weight: bold; 
-    border: none; 
+/* 2. 把动画绑定到按钮上 */
+.claim-btn {
+    animation: pulse 1.5s infinite ease-in-out; /* 1.5秒循环一次，无限循环 */
+    display: block;
+    width: 100%;
+    background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%); 
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 0 #b38400;
+    transition: all 0.1s;
+    text-align: center;
 }
-        #loading-view { display: none; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0071ce; border-radius: 50%; width: 40px; height: 40px; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .status-msg { font-weight: 600; color: #0071ce; }
+
+/* 3. 鼠标按下时的效果（保持点击感） */
+.claim-btn:active {
+    animation: none; /* 点击时停止动画 */
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b38400;
+}
+        /* 基础样式消除 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: #f4f4f4; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 10px; }
+
+        /* 主容器：限制宽度并居中 */
+        .lp-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* 顶部蓝色区域：压缩高度 */
+        .header-banner {
+            background-color: #0071ce; /* 沃尔玛蓝 */
+            padding: 12px 10px;
+            color: white;
+        }
+        .header-banner h1 { font-size: 18px; margin-bottom: 5px; text-transform: uppercase; }
+        .header-banner .amount { font-size: 32px; font-weight: bold; display: block; }
+
+        /* 内容主体：紧凑排列 */
+        .content { padding: 15px; }
+        .congrats-title { color: #333; font-size: 20px; margin-bottom: 10px; }
+
+        /* 图片优化：自适应并增加视觉效果 */
+        .prize-card-img {
+            width: 90%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,113,206, 0.2);
+            margin: 5px auto 12px auto;
+            display: block;
+        }
+
+        /* 引导文字：压缩字号和间距 */
+        .instruction { color: #666; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+        .selection-text { font-size: 13px; color: #888; margin-bottom: 15px; }
+
+        /* 转化按钮：醒目且高度适中 */
+        .claim-btn {
+    display: block;
+    width: 100%;
+    /* 使用渐变色，增加立体感 */
+    background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%); 
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px; /* 字号略微加大 */
+    padding: 16px;
+    border-radius: 12px; /* 方圆角比纯圆角看起来更像正式按钮 */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #b38400; /* 增加深色的底部投影 */
+    text-shadow: 0 1px 0 rgba(255,255,255,0.3); /* 文字微光，增加精致感 */
+    transition: all 0.1s;
+}
+
+.claim-btn:active {
+    transform: translateY(2px); /* 点击时的下沉感 */
+    box-shadow: 0 2px 0 #b38400;
+}
+
+        /* 底部版权：弱化处理 */
+        .footer { font-size: 10px; color: #ccc; margin-top: 15px; padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="wrap">
-    <div id="init-view">
-        <div style="color:#0071ce; font-weight:bold; margin-bottom:10px;">WALMART SHOPPER REWARD</div>
-        <div class="card-visual">$1,000</div>
-        <h1>Congratulations!</h1>
-        <div class="hero-image-container">
-    <img src="walmart-card-hero.webp" alt="Walmart $1000 Gift Card Prize" class="prize-card-img">
-</div>
+    <div class="lp-container">
+        <div class="header-banner">
+            <h1>Walmart Shopper Reward</h1>
+            <span class="amount">$1,000</span>
+        </div>
 
-<p class="description-text">Complete the short survey below to claim yours!</p>
-        <p>You have been selected. Claim your $1,000 gift card now.</p>
-        <button class="btn" id="goBtn">CLAIM NOW</button>
+        <div class="content">
+            <h2 class="congrats-title">Congratulations!</h2>
+            
+            <img src="walmart-card-hero.webp" alt="Walmart $1000 Gift Card" class="prize-card-img">
+
+            <p class="instruction">Complete the short survey below to claim yours!</p>
+            
+            <p class="selection-text">You have been selected. Claim your $1,000 gift card now.</p>
+
+            <a href="YOUR_NEW_OFFER_URL_HERE" class="claim-btn" id="mainLink">CLAIM NOW</a>
+        </div>
+
+        <div class="footer">
+            © 2026 Walmart Rewards Program. US Only.
+        </div>
     </div>
 
-    <div id="loading-view">
-        <div class="spinner"></div>
-        <h1 id="load-title">Processing...</h1>
-        <p id="load-desc" class="status-msg">Verifying entry...</p>
-    </div>
-</div>
+    <script>
+        // 自动提取 URL 中的参数并拼接到 Offer 链接（如果需要）
+        const urlParams = new URLSearchParams(window.location.search);
+        const mainLink = document.getElementById('mainLink');
+        if (urlParams.has('bbg')) {
+            const currentHref = mainLink.getAttribute('href');
+            // 这里建议根据你实际的跳转逻辑修改参数拼接方式
+            mainLink.setAttribute('href', currentHref + '&clickid=' + urlParams.get('bbg'));
+        }
+    </script>
 
-<script>
-(function () {
-    const params = new URLSearchParams(window.location.search);
-    const finalUrl = "https://flowbox.hotrk0.com/offer?offer_id=184842&aff_id=295" +
-                     "&aff_sub=" + encodeURIComponent(params.get('bbg') || '') +
-                     "&aff_sub2=" + encodeURIComponent(params.get('pixel_id') || '') +
-                     "&aff_sub3=" + encodeURIComponent(params.get('ad_name') || '') +
-                     "&aff_pub=" + encodeURIComponent(params.get('publisher_id') || '');
-
-    const btn = document.getElementById("goBtn");
-    const initView = document.getElementById("init-view");
-    const loadingView = document.getElementById("loading-view");
-    const loadDesc = document.getElementById("load-desc");
-    const loadTitle = document.getElementById("load-title");
-
-    btn.addEventListener("click", function () {
-        // 1. 瞬时执行跳转请求（核心：不等待动画）
-        window.location.href = finalUrl;
-
-        // 2. 同步切换视觉效果
-        initView.style.display = "none";
-        loadingView.style.display = "block";
-        
-        // 3. 紧凑的字幕节奏（总计约1.2秒，符合现代快节奏流量）
-        setTimeout(() => {
-            loadTitle.innerText = "Confirmed!";
-            loadTitle.style.color = "#28a745";
-            loadDesc.innerText = "Redirecting to your reward page...";
-        }, 600);
-        
-        // 4. 强制跳转兜底
-        setTimeout(() => { window.location.replace(finalUrl); }, 3000);
-    });
-})();
-</script>
 </body>
 </html>

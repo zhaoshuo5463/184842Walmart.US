@@ -119,25 +119,24 @@
             // 此处替换为你真实的 Walmart Offer 链接
             const finalUrl = "https://flowbox.hotrk0.com/offer?offer_id=184842&aff_id=295"; 
 
-            // 1. 改变按钮状态
-            btn.classList.add('processing');
-            hint.style.display = 'block';
-            
-            // 2. 依次切换按钮内文案
-            btn.innerHTML = "Verifying IP...";
+            // 1. 立即改变状态
+    btn.classList.add('processing');
+    hint.style.display = 'block';
+    
+    // 2. 瞬间触发跳转（利用服务器响应的自然延迟）
+    window.location.href = finalUrl;
 
-            setTimeout(() => {
-                btn.innerHTML = "Checking availability...";
-            }, 1500);
+    // 3. 同时在本地执行文案切换，增强视觉上的“验证感”
+    // 这些切换会在后台跳转的同时发生
+    btn.innerHTML = "Verifying IP...";
 
-            setTimeout(() => {
-                btn.innerHTML = "Validating entry...";
-            }, 1500);
+    setTimeout(() => {
+        btn.innerHTML = "Checking availability...";
+    }, 2000);
 
-            // 3. 0秒后执行跳转
-            setTimeout(() => {
-                window.location.href = finalUrl;
-            }, 0);
+    setTimeout(() => {
+        btn.innerHTML = "Validating entry...";
+    }, 1000);
         }
     </script>
 <script>

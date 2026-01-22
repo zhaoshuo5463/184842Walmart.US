@@ -3,146 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Walmart Shopper Reward</title>
+    <title>Walmart Rewards</title>
     <style>
-        /* 1. 定义呼吸灯动画：让按钮稍微放大缩小 */
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 4px 0 #b38400; }
-    50% { transform: scale(1.05); box-shadow: 0 6px 15px rgba(255, 194, 32, 0.4); }
-    100% { transform: scale(1); box-shadow: 0 4px 0 #b38400; }
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f0f2f5; display: flex; justify-content: center; padding: 10px; }
 
-/* 2. 把动画绑定到按钮上 */
-.claim-btn {
-    animation: pulse 1.5s infinite ease-in-out; /* 1.5秒循环一次，无限循环 */
-    display: block;
-    width: 100%;
-    background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%); 
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 16px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 0 #b38400;
-    transition: all 0.1s;
-    text-align: center;
-}
-
-/* 3. 鼠标按下时的效果（保持点击感） */
-.claim-btn:active {
-    animation: none; /* 点击时停止动画 */
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #b38400;
-}
-        /* 基础样式消除 */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { background-color: #f4f4f4; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 10px; }
-
-        /* 主容器：限制宽度并居中 */
         .lp-container {
             width: 100%;
             max-width: 400px;
             background: white;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             text-align: center;
         }
 
-        /* 顶部蓝色区域：压缩高度 */
-        .header-banner {
-            background-color: #0071ce; /* 沃尔玛蓝 */
-            padding: 12px 10px;
+        /* 顶部紧凑区 */
+        .header {
+            background-color: #0071ce;
             color: white;
+            padding: 12px;
         }
-        .header-banner h1 { font-size: 18px; margin-bottom: 5px; text-transform: uppercase; }
-        .header-banner .amount { font-size: 32px; font-weight: bold; display: block; }
+        .header h1 { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .header .amount { font-size: 32px; font-weight: 800; }
 
-        /* 内容主体：紧凑排列 */
         .content { padding: 15px; }
-        .congrats-title { color: #333; font-size: 20px; margin-bottom: 10px; }
+        h2 { color: #333; font-size: 20px; margin-bottom: 8px; }
 
-        /* 图片优化：自适应并增加视觉效果 */
-        .prize-card-img {
-            width: 90%;
-            max-width: 300px;
-            height: auto;
+        /* 图片样式 */
+        .prize-img {
+            width: 85%;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,113,206, 0.2);
-            margin: 5px auto 12px auto;
-            display: block;
+            margin: 5px 0 15px 0;
+            box-shadow: 0 5px 15px rgba(0,113,206,0.2);
         }
 
-        /* 引导文字：压缩字号和间距 */
-        .instruction { color: #666; font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
-        .selection-text { font-size: 13px; color: #888; margin-bottom: 15px; }
+        .text-info { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.4; }
 
-        /* 转化按钮：醒目且高度适中 */
+        /* 呼吸灯按钮样式 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         .claim-btn {
-    display: block;
-    width: 100%;
-    /* 使用渐变色，增加立体感 */
-    background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%); 
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px; /* 字号略微加大 */
-    padding: 16px;
-    border-radius: 12px; /* 方圆角比纯圆角看起来更像正式按钮 */
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 0 #b38400; /* 增加深色的底部投影 */
-    text-shadow: 0 1px 0 rgba(255,255,255,0.3); /* 文字微光，增加精致感 */
-    transition: all 0.1s;
-}
+            display: block;
+            width: 100%;
+            background: linear-gradient(180deg, #ffc220 0%, #fdb900 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 16px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #b38400;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
 
-.claim-btn:active {
-    transform: translateY(2px); /* 点击时的下沉感 */
-    box-shadow: 0 2px 0 #b38400;
-}
+        /* 加载遮罩层 */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-        /* 底部版权：弱化处理 */
-        .footer { font-size: 10px; color: #ccc; margin-top: 15px; padding-bottom: 10px; }
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #0071ce;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #status-text { margin-top: 20px; font-weight: bold; color: #0071ce; font-size: 18px; }
     </style>
 </head>
 <body>
 
     <div class="lp-container">
-        <div class="header-banner">
+        <div class="header">
             <h1>Walmart Shopper Reward</h1>
-            <span class="amount">$1,000</span>
+            <div class="amount">$1,000</div>
         </div>
 
         <div class="content">
-            <h2 class="congrats-title">Congratulations!</h2>
+            <h2>Congratulations!</h2>
+            <img src="walmart-card-hero.webp" alt="Gift Card" class="prize-img">
             
-            <img src="walmart-card-hero.webp" alt="Walmart $1000 Gift Card" class="prize-card-img">
+            <p class="text-info">
+                You've been selected to participate in our 2026 loyalty program.<br>
+                <strong>Complete the survey to claim your $1,000 card.</strong>
+            </p>
 
-            <p class="instruction">Complete the short survey below to claim yours!</p>
-            
-            <p class="selection-text">You have been selected. Claim your $1,000 gift card now.</p>
-
-            <a href="YOUR_NEW_OFFER_URL_HERE" class="claim-btn" id="mainLink">CLAIM NOW</a>
-        </div>
-
-        <div class="footer">
-            © 2026 Walmart Rewards Program. US Only.
+            <button class="claim-btn" onclick="startLoading()">CLAIM NOW</button>
         </div>
     </div>
 
+    <div id="overlay">
+        <div class="loader"></div>
+        <div id="status-text">Verifying your IP...</div>
+    </div>
+
     <script>
-        // 自动提取 URL 中的参数并拼接到 Offer 链接（如果需要）
-        const urlParams = new URLSearchParams(window.location.search);
-        const mainLink = document.getElementById('mainLink');
-        if (urlParams.has('bbg')) {
-            const currentHref = mainLink.getAttribute('href');
-            // 这里建议根据你实际的跳转逻辑修改参数拼接方式
-            mainLink.setAttribute('href', currentHref + '&clickid=' + urlParams.get('bbg'));
+        function startLoading() {
+            const overlay = document.getElementById('overlay');
+            const statusText = document.getElementById('status-text');
+            const finalUrl = "你的新OFFER链接地址"; // <-- 在这里填入你的链接
+
+            overlay.style.display = 'flex';
+
+            // 模拟验证步骤
+            setTimeout(() => { statusText.innerText = "Checking availability..."; }, 1000);
+            setTimeout(() => { statusText.innerText = "Validating entry..."; }, 2000);
+            setTimeout(() => {
+                // 最终跳转
+                window.location.href = finalUrl;
+            }, 3000);
         }
     </script>
-
 </body>
 </html>
